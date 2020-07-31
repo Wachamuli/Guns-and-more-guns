@@ -38,9 +38,12 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement()
     {
-        float x = Input.GetAxisRaw("Horizontal");
+        string Horizontal = AimCameraController.isAiming? "Mouse X" : "Horizontal";
+
+        float x = Input.GetAxisRaw(Horizontal);
         float z = Input.GetAxisRaw("Vertical");
 
+        transform.Rotate(Vector3.up, x * 1f * Time.deltaTime);
         Vector3 movement = new Vector3(x, 0f, z).normalized;
 
         if (movement.magnitude >= 0.1f)
@@ -51,7 +54,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 movDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
-            speed = Input.GetKey(KeyCode.LeftShift) ? speed = 20f : speed = 10f;
+            //speed = Input.GetKey(KeyCode.LeftShift) ? speed = 20f : speed = 10f;
 
             characterController.Move(movDir.normalized * speed * Time.deltaTime);
         }
