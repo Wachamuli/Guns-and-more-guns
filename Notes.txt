@@ -1,0 +1,7 @@
+En este proyecto se aprendió:
+-Un poco más sobre cinemachine
+-Se mejoro y se comprendió más a fondo el character controller
+-Conocí el concepto de refactorizar y organizar el código por métodos
+-Obtener componentes directamente por medio de Start
+-Para una third person camera se utiliza una free look camera
+-Para el apuntado, por ejemplo de un arma, se utiliza una virtual camera
