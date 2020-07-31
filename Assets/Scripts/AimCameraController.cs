@@ -38,11 +38,14 @@ public class AimCameraController : MonoBehaviour
         composer.m_TrackedObjectOffset.y = Mathf.Clamp(composer.m_TrackedObjectOffset.y, -1f, 2.5f);
     }
 
-    public static void AimingOrNot(float mouseSensivity, float speed)
+    public static float AimingOrNot(float mouseSensivity, float speed)
     {
         float key = Input.GetAxisRaw("Horizontal");
         float mouse = Input.GetAxisRaw("Mouse X");
 
         float Horizontal = isAiming? mouse * mouseSensivity : key * speed;
+        isAiming = false;
+        
+        return Horizontal;
     }
 }
