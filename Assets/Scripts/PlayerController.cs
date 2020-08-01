@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float mass = 1;
     public Vector3 velocity;
     public float jumpForce = 0.5f;
-    public Transform GroundChecker;
+    public Transform groundChecker;
     public float radius = 0.5f;
     public LayerMask ground;
     bool isGrounded;
@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement()
     {
-        //Haz click si quieres ver la referencia del método
         float x = AimCameraController.AimingOrNot(sensivity, speed);
         float z = Input.GetAxisRaw("Vertical");
 
@@ -47,7 +46,6 @@ public class PlayerController : MonoBehaviour
 
         if (movement.magnitude >= 0.1f)
         {
-            //? Take a look
             float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -61,20 +59,17 @@ public class PlayerController : MonoBehaviour
 
     void PlayerJump()
     {
-        isGrounded = Physics.CheckSphere(GroundChecker.position, radius, ground);
+        isGrounded = Physics.CheckSphere(groundChecker.position, radius, ground);
 
         velocity.y += (gravity * mass * Time.deltaTime);
 
         characterController.Move(velocity * Time.deltaTime);
 
         if (isGrounded && velocity.y < 0)
-        {
             velocity.y = -2f;
-        }
+        
 
         if (Input.GetKeyDown("space") && isGrounded)
-        {
             velocity.y = Mathf.Sqrt(jumpForce * velocity.y * gravity);
-        }
     }
 }

@@ -2,22 +2,26 @@ using UnityEngine;
 
 public class FreeOrAimCamera : MonoBehaviour {
 
-    public GameObject aimCamra;
+    public GameObject aimCamera;
+    public GameObject aimSight;
 
     private void Update() 
     {
-        //SwitchCmaeras();
+        SwitchCameras();
     }
 
-    void SwitchCmaeras()
+    void SwitchCameras()
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            aimCamra.SetActive(true);
+            aimCamera.SetActive(true);
+            aimSight.SetActive(true);
         }
         else
         {
-            aimCamra.SetActive(false);
+            aimCamera.SetActive(false);
+            aimSight.SetActive(false);
         }
+
     }
 }
