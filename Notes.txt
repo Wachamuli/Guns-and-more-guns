@@ -5,3 +5,8 @@ En este proyecto se aprendió:
 -Obtener componentes directamente por medio de Start
 -Para una third person camera se utiliza una free look camera
 -Para el apuntado, por ejemplo de un arma, se utiliza una virtual camera
+-Uso de mi propio namespace
+-Cambios entre camaras
+
+//TODO:
+-Disparar por medio de raycast ,destruir objetos y que esten alineados con la mira.

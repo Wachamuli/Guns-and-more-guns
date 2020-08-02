@@ -1,27 +1,22 @@
 ﻿using UnityEngine;
+using PhysicsClass = MyPhysics.PlayerPhysics;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+
     [Header("Movement")]
+    public PhysicsClass Physics;
     public CharacterController characterController;
     [Range(0f, 20f)] public float speed = 10f;
 
     [Header("Jump")]
-    private float _gravity = -9.81f;
-    [Range(0, 100)]
-    [SerializeField] private float _mass = 1;
-    private Vector3 _velocity;
-    [SerializeField] private float jumpForce = 0.5f;
-    public Transform groundChecker;
-    private float _radius = 0.5f;
-    public LayerMask ground;
-    bool isGrounded;
+    public float jumpForce = 1.0f;
 
     [Header("Camera ajusment")]
     public Transform cam;
-    public float _turnSmoothTime = 0.1f;
-    private float _turnSmoothVelocity;
+    [HideInInspector] private float _turnSmoothTime = 0.1f;
+    [HideInInspector] private float _turnSmoothVelocity;
     public float sensivity = 0.1f;
 
     void Start()
@@ -60,17 +55,9 @@ public class PlayerController : MonoBehaviour
 
     void PlayerJump()
     {
-        isGrounded = Physics.CheckSphere(groundChecker.position, _radius, ground);
+        Physics.Gravity();
 
-        _velocity.y += (_gravity * _mass * Time.deltaTime);
-
-        characterController.Move(_velocity * Time.deltaTime);
-
-        if (isGrounded && _velocity.y < 0)
-            _velocity.y = -2f;
-
-
-        if (Input.GetKeyDown("space") && isGrounded)
-            _velocity.y = Mathf.Sqrt(jumpForce * _velocity.y * _gravity);
+        if (Input.GetKeyDown("space") && Physics.isGrounded)
+            Physics.velocity.y = Mathf.Sqrt(jumpForce * Physics.velocity.y * Physics.gravity);
     }
 }

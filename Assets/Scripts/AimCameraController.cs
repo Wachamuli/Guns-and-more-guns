@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
-using Cinemachine; //Librería para el uso de Cinemachine
+using Cinemachine;
 
 public class AimCameraController : MonoBehaviour
 {
-    [Header("Camera")]
-    public CinemachineComposer composer;
-    [Range(0.01f, 10.0f)] public float sensitive = 0.1f;
-    public static bool isAiming;
     public CharacterController characterController;
     public Transform player;
+
+    [Header("Aim Camera")]
+    public CinemachineComposer composer;
+    [Range(0.01f, 10.0f)] public float sensitiveXAxis = 1f;
+    [Range(0.01f, 10.0f)] public float sensitiveYAxis = 0.1f;
+    public static bool isAiming;
 
     void Start()
     {
@@ -23,12 +25,12 @@ public class AimCameraController : MonoBehaviour
     private void CameraController()
     {
         isAiming = true;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * sensitive;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * sensitiveYAxis;
 
         composer.m_TrackedObjectOffset.y += mouseY;
         composer.m_TrackedObjectOffset.y = Mathf.Clamp(composer.m_TrackedObjectOffset.y, -1f, 2.5f);
 
-        float x = Input.GetAxisRaw("Mouse X");
+        float x = Input.GetAxisRaw("Mouse X") * sensitiveXAxis;
         player.transform.Rotate(Vector3.up, x * 100f * Time.deltaTime);
     }
 
