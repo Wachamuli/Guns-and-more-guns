@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement()
     {
-        float x = AimCameraController.AimingOrNot(sensivity, speed);
+        //float x = AimCameraController.AimingOrNot(sensivity, speed);
+        float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(x, 0f, z).normalized;
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded && _velocity.y < 0)
             _velocity.y = -2f;
-        
+
 
         if (Input.GetKeyDown("space") && isGrounded)
             _velocity.y = Mathf.Sqrt(jumpForce * _velocity.y * _gravity);

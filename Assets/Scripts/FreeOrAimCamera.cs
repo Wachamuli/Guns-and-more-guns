@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class FreeOrAimCamera : MonoBehaviour {
-
+public class FreeOrAimCamera : MonoBehaviour
+{
     public GameObject aimCamera;
     public GameObject aimSight;
 
-    private void Update() 
+    private void Update()
     {
         SwitchCameras();
     }

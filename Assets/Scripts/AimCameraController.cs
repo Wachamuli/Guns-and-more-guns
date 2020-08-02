@@ -1,24 +1,18 @@
-﻿using System.IO.MemoryMappedFiles;
-using UnityEngine;
+﻿using UnityEngine;
 using Cinemachine; //Librería para el uso de Cinemachine
 
 public class AimCameraController : MonoBehaviour
 {
     [Header("Camera")]
     public CinemachineComposer composer;
-    [Range(0.00000001f, 10.0f)] public float sensitive = 1.0f;
+    [Range(0.01f, 10.0f)] public float sensitive = 0.1f;
     public static bool isAiming;
     public CharacterController characterController;
     public Transform player;
-    //private float turnSmoothVelocity;
-    //private float turnSmoothTime;
-    //public Transform cam;
 
     void Start()
     {
-        //characterController = GetComponentInParent<CharacterController>();
         composer = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineComposer>();
-        //player = GetComponentInParent<Transform>();
     }
 
     void Update()
@@ -29,12 +23,13 @@ public class AimCameraController : MonoBehaviour
     private void CameraController()
     {
         isAiming = true;
-        //float mouseX = Input.GetAxisRaw("Mouse X") * sensitive;
         float mouseY = Input.GetAxisRaw("Mouse Y") * sensitive;
 
-        //composer.m_TrackedObjectOffset.x += mouseX;
         composer.m_TrackedObjectOffset.y += mouseY;
         composer.m_TrackedObjectOffset.y = Mathf.Clamp(composer.m_TrackedObjectOffset.y, -1f, 2.5f);
+
+        float x = Input.GetAxisRaw("Mouse X");
+        player.transform.Rotate(Vector3.up, x * 100f * Time.deltaTime);
     }
 
     public static float AimingOrNot(float mouseSensitive, float speed)
