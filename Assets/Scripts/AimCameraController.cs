@@ -3,45 +3,48 @@ using Cinemachine;
 
 public class AimCameraController : MonoBehaviour
 {
-    public CharacterController characterController;
     public Transform player;
 
     [Header("Aim Camera")]
-    public CinemachineComposer composer;
-    [Range(0.01f, 10.0f)] public float sensitiveXAxis = 1f;
-    [Range(0.01f, 10.0f)] public float sensitiveYAxis = 0.1f;
+
+    [SerializeField]
+    private CinemachineComposer composer;
+
+    [Range(0.01f, 50.0f)] 
+    [SerializeField] 
+    private float sensitiveXAxis = 30f;
+
+    [Range(0.01f, 10.0f)] 
+    [SerializeField] 
+    private float sensitiveYAxis = 0.1f;
     public static bool isAiming;
 
     void Start()
-    {
+    { 
         composer = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineComposer>();
+        //player.transform.SetPositionAndRotation(player.transform.position, this.transform.rotation);
     }
 
     void Update()
     {
         CameraController();
+        //FixPosition();
     }
 
     private void CameraController()
     {
         isAiming = true;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * sensitiveYAxis;
 
+        float mouseY = Input.GetAxisRaw("Mouse Y") * sensitiveYAxis;
         composer.m_TrackedObjectOffset.y += mouseY;
         composer.m_TrackedObjectOffset.y = Mathf.Clamp(composer.m_TrackedObjectOffset.y, -1f, 2.5f);
 
         float x = Input.GetAxisRaw("Mouse X") * sensitiveXAxis;
-        player.transform.Rotate(Vector3.up, x * 100f * Time.deltaTime);
+        player.transform.Rotate(Vector3.up, x * Time.deltaTime);
     }
 
-    public static float AimingOrNot(float mouseSensitive, float speed)
+    private void FixPosition()
     {
-        float key = Input.GetAxisRaw("Horizontal");
-        float mouse = Input.GetAxisRaw("Mouse X");
-
-        float Horizontal = isAiming ? mouse * mouseSensitive * Time.deltaTime : key * speed * Time.deltaTime;
-        isAiming = false;
-
-        return Horizontal;
+       
     }
 }

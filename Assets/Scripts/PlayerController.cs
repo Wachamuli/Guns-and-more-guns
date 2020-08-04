@@ -4,20 +4,26 @@ using PhysicsClass = MyPhysics.PlayerPhysics;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-
     [Header("Movement")]
-    public PhysicsClass Physics;
-    public CharacterController characterController;
-    [Range(0f, 20f)] public float speed = 10f;
+    public PhysicsClass myPhysics;
+
+    [SerializeField]
+    private CharacterController characterController;
+
+    [SerializeField]
+    [Range(0f, 20f)]
+    private float speed = 10f;
 
     [Header("Jump")]
-    public float jumpForce = 1.0f;
+    [SerializeField]
+    private float jumpForce = 1.0f;
 
     [Header("Camera ajusment")]
-    public Transform cam;
-    [HideInInspector] private float _turnSmoothTime = 0.1f;
-    [HideInInspector] private float _turnSmoothVelocity;
-    public float sensivity = 0.1f;
+    
+    [SerializeField]
+    private Transform cam;
+    private float _turnSmoothTime = 0.1f;
+    private float _turnSmoothVelocity;
 
     void Start()
     {
@@ -34,7 +40,6 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement()
     {
-        //float x = AimCameraController.AimingOrNot(sensivity, speed);
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
@@ -55,9 +60,9 @@ public class PlayerController : MonoBehaviour
 
     void PlayerJump()
     {
-        Physics.Gravity();
+        myPhysics.Gravity();
 
-        if (Input.GetKeyDown("space") && Physics.isGrounded)
-            Physics.velocity.y = Mathf.Sqrt(jumpForce * Physics.velocity.y * Physics.gravity);
+        if (Input.GetKeyDown("space") && myPhysics.isGrounded)
+            myPhysics.velocity.y = Mathf.Sqrt(jumpForce * myPhysics.velocity.y * myPhysics.gravity);
     }
 }

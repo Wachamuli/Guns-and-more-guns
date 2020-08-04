@@ -7,6 +7,11 @@ En este proyecto se aprendió:
 -Para el apuntado, por ejemplo de un arma, se utiliza una virtual camera
 -Uso de mi propio namespace
 -Cambios entre camaras
+-Uso extendido de cinemachine
+-Priority
+-Inherit
+-Noise
+-Deadzone
 
 //TODO:
 -Disparar por medio de raycast ,destruir objetos y que esten alineados con la mira.
