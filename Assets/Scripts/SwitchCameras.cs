@@ -3,8 +3,6 @@ using Cinemachine;
 
 public class SwitchCameras : MonoBehaviour
 {
-    [SerializeField]
-    private CinemachineBrain playerCamera;
     public GameObject thirdPersonCamera;
     public GameObject aimCamera;
     public GameObject aimSight;

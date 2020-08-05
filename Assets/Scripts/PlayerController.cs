@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         characterController = GetComponent<CharacterController>();
-        cam = GetComponent<Transform>().GetChild(1);
+        cam = GetComponent<Transform>().GetChild(2);
     }
 
     void Update()
