@@ -15,6 +15,8 @@ public class Shoot : MonoBehaviour
 
     [SerializeField]
     private float recoil = 0.1f;
+    
+    [SerializeField]
     private CinemachineComposer recoilComposer;
 
     [SerializeField]
