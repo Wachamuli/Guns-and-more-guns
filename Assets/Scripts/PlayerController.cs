@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using PhysicsClass = MyPhysics.PlayerPhysics;
+using PhysicsClass = MyPhysics.Physics;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour

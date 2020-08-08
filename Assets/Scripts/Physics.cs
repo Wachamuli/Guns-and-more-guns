@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MyPhysics
 {
-    public class PlayerPhysics : MonoBehaviour
+    public class Physics : MonoBehaviour
     {
         public CharacterController characterController;
 
@@ -29,7 +29,7 @@ namespace MyPhysics
 
         public void Gravity()
         {
-            isGrounded = Physics.CheckSphere(groundChecker.position, _radius, ground);
+            isGrounded = UnityEngine.Physics.CheckSphere(groundChecker.position, _radius, ground);
 
             velocity.y += (gravity * mass * Time.deltaTime);
 

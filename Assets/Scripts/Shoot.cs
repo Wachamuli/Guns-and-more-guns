@@ -1,9 +1,13 @@
 using UnityEngine;
 using Cinemachine;
 
-public class PlayerShoot : MonoBehaviour
+public class Shoot : MonoBehaviour
 {
     [Header("Gun")]
+
+    [SerializeField]
+    private float damage = 1f;
+    private float fireRateTimer;
 
     [SerializeField]
     [Range(0.5f, 2.0f)]
@@ -11,30 +15,26 @@ public class PlayerShoot : MonoBehaviour
 
     [SerializeField]
     private float recoil = 0.1f;
-
-    [SerializeField]
-    private float damage = 1f;
-    private float timer;
+    private CinemachineComposer recoilComposer;
 
     [SerializeField]
     private float maxDistance = 100f;
     private delegate void DelGun();
-    public CinemachineComposer composer;
 
     private void Update()
     {
-        fireRateManager(GenericGun);
+        FireRateManager(GenericGun);
     }
 
-    private void fireRateManager(DelGun FireGun)
+    private void FireRateManager(DelGun FireGun)
     {
-        timer += Time.deltaTime;
+        fireRateTimer += Time.deltaTime;
 
-        if (timer >= fireRate)
+        if (fireRateTimer >= fireRate)
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                timer = 0f;
+                fireRateTimer = 0f;
                 FireGun();
             }
         }
@@ -44,7 +44,7 @@ public class PlayerShoot : MonoBehaviour
     {
 
         Ray ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
-        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 2.0f);
+        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 0.5f);
 
         RaycastHit hitInfo;
 
@@ -56,15 +56,11 @@ public class PlayerShoot : MonoBehaviour
                 health.TakeDamage(damage);
         }
 
-        Recoil(true);
+        Recoil();
     }
 
-    //TODO:
-    private void Recoil(bool shooted)
+    private void Recoil()
     {
-        if (shooted)
-        {
-            composer.m_TrackedObjectOffset.y += recoil;
-        }
+        recoilComposer.m_TrackedObjectOffset.y += recoil;
     }
 }

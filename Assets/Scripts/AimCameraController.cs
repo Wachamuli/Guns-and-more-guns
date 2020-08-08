@@ -4,15 +4,15 @@ using Cinemachine;
 public class AimCameraController : MonoBehaviour
 {
     [Header("Aim Camera")]
-    
+
     public CinemachineComposer composer;
 
-    [Range(0.01f, 50.0f)] 
-    [SerializeField] 
+    [Range(0.01f, 50.0f)]
+    [SerializeField]
     private float sensitiveXAxis = 30f;
 
-    [Range(0.01f, 10.0f)] 
-    [SerializeField] 
+    [Range(0.01f, 10.0f)]
+    [SerializeField]
     private float sensitiveYAxis = 0.1f;
     public static bool isAiming;
 
@@ -23,7 +23,7 @@ public class AimCameraController : MonoBehaviour
 
     private void CameraController()
     {
-        
+
         if (Input.GetKey(KeyCode.Mouse1))
         {
             isAiming = true;
@@ -32,7 +32,7 @@ public class AimCameraController : MonoBehaviour
         {
             isAiming = false;
         }
-    
+
         if (isAiming)
         {
             float mouseY = Input.GetAxisRaw("Mouse Y") * sensitiveYAxis;
