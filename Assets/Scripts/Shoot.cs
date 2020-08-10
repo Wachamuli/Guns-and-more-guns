@@ -5,22 +5,13 @@ public class Shoot : MonoBehaviour
 {
     [Header("Gun")]
 
-    [SerializeField]
-    private float damage = 1f;
-    private float fireRateTimer;
+    [SerializeField] private float _damage = 1f;
+    [SerializeField] [Range(0.5f, 2.0f)] private float _fireRate = 1f;
+    [SerializeField] private float _recoil = 0.1f;
+    [SerializeField] private CinemachineComposer _recoilComposer;
+    [SerializeField] private float _maxDistance = 100f;
 
-    [SerializeField]
-    [Range(0.5f, 2.0f)]
-    private float fireRate = 1f;
-
-    [SerializeField]
-    private float recoil = 0.1f;
-    
-    [SerializeField]
-    private CinemachineComposer recoilComposer;
-
-    [SerializeField]
-    private float maxDistance = 100f;
+    private float _fireRateTimer;
     private delegate void DelGun();
 
     private void Update()
@@ -30,13 +21,13 @@ public class Shoot : MonoBehaviour
 
     private void FireRateManager(DelGun FireGun)
     {
-        fireRateTimer += Time.deltaTime;
+        _fireRateTimer += Time.deltaTime;
 
-        if (fireRateTimer >= fireRate)
+        if (_fireRateTimer >= _fireRate)
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                fireRateTimer = 0f;
+                _fireRateTimer = 0f;
                 FireGun();
             }
         }
@@ -50,12 +41,12 @@ public class Shoot : MonoBehaviour
 
         RaycastHit hitInfo;
 
-        if (Physics.Raycast(ray, out hitInfo, maxDistance))
+        if (Physics.Raycast(ray, out hitInfo, _maxDistance))
         {
             var health = hitInfo.collider.GetComponent<EnemyHealth>();
 
             if (health != null)
-                health.TakeDamage(damage);
+                health.TakeDamage(_damage);
         }
 
         Recoil();
@@ -63,6 +54,6 @@ public class Shoot : MonoBehaviour
 
     private void Recoil()
     {
-        recoilComposer.m_TrackedObjectOffset.y += recoil;
+        _recoilComposer.m_TrackedObjectOffset.y += _recoil;
     }
 }

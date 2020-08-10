@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SwitchCameras : MonoBehaviour
 {
-    public GameObject thirdPersonCamera;
-    public GameObject aimCamera;
+    [SerializeField] private GameObject _thirdPersonCamera;
+    [SerializeField] private GameObject _aimCamera;
 
     private void Update()
     {
@@ -14,15 +14,15 @@ public class SwitchCameras : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            thirdPersonCamera.SetActive(false);
+            _thirdPersonCamera.SetActive(false);
 
-            aimCamera.SetActive(true);
+            _aimCamera.SetActive(true);
         }
         else
         {
-            thirdPersonCamera.SetActive(true);
+            _thirdPersonCamera.SetActive(true);
             
-            aimCamera.SetActive(false);
+            _aimCamera.SetActive(false);
         }
     }
 }
