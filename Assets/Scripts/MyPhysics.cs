@@ -13,8 +13,8 @@ public class MyPhysics : MonoBehaviour
     [Header("Ground Analyzer")]
     
     [SerializeField] private float _radius = 0.5f;
-    public Transform groundChecker;
-    private LayerMask ground;
+    [SerializeField] private LayerMask _ground;
+    [SerializeField] private Transform _groundChecker;
     public bool isGrounded;
 
     private void Start()
@@ -29,7 +29,7 @@ public class MyPhysics : MonoBehaviour
 
     public void Gravity()
     {
-        isGrounded = UnityEngine.Physics.CheckSphere(groundChecker.position, _radius, ground);
+        isGrounded = UnityEngine.Physics.CheckSphere(_groundChecker.position, _radius, _ground);
 
         velocity.y += (gravity * mass * Time.deltaTime);
 
